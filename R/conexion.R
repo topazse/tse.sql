@@ -2,12 +2,13 @@
 #'
 #' Usa paquete RODBC.
 #' @param odbc nombre de odbc local para conectar
-
-t.conectarbd <- function(odbc = "analitica",
+t_conectarbd <- function(odbc = "analitica",
                          user = "topaz",
                          pass) {
   print("Conectando con base de datos de analitica...")
   require(RODBC)
-  t.con <<- odbcConnect()
+  t.con <<- odbcConnect(dsn = odbc, 
+                        uid = user, 
+                        pwd = pass)
   print("Conectando con base de datos de analitica...")
 }
