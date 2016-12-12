@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' Eliminar outliers\n#'\n#' Elimina outliers de columna al porcentaje parametrizado\n#'\n#' @param .data dataset a usar\n#' @param por columna (desnuda) por la cual eliminar outliers\n#' @param p porcentaje (en decimal) a eliminar de registros\n#' @param tipo \"ambos\", \"abajo\" o \"arriba\" depende el caso\n#' @examples\n#'  df <- data.frame(\"columna1\" = c(1,2,3,4,5,6,1,2,3,4,5,6),\n#'                   \"columna2\" = c(84,102,99,103,101,109,\n#'                                  116,121,122,119,131,222))\n#' df_sin <- t_eoutliers(df, columna2)\n#' @export\nt_eoutliers <- function(.data, por, p = 0.01, tipo = \"ambos\"){\n  .data <- as.data.frame(.data)\n  e <- length(.data[,1])\n\n  arguments <- as.list(match.call())\n  col <- eval(arguments$por, .data)\n  d <- with(.data, col)\n\n  #limites\n  lim_s <- 1-p\n  lim_i <- p\n  #quantiles\n  qs <- quantile(d, lim_s)\n  qi <- quantile(d, lim_i)\n  #filtrar\n  if(tipo==\"ambos\"){\n    newd <- .data[with(.data, col)>qi & with(.data, col)<qs,]\n  }else\n    if(tipo==\"abajo\"){\n      newd <- .data[with(.data, col)>qi,]\n    }else{\n      if(tipo==\"arriba\"){\n        newd <- .data[with(.data, col)<qs,]\n      }else{\n        stop(\"No reconocido... Poner arriba, abajo o ambos en tipo.\")\n      }\n    }\n\n  f <- length(newd[,1])\n  msg <- paste0(\"Eliminando... \", ifelse(e-f>10000,\n                                         paste0(round((e-f)/1000, digits = 0), \"k\"),\n                                         e-f),\n                \" renglones (\", round((e-f)/e*100, digits = 2), \"%)\")\n  print(msg)\n  return(newd)\n}\n#' Retorna strings de conteo\n#'\n#' Al ingresar un numero, rendondea a miles o millones, de acuerdo al dato. Usado en prints para resumir informacion.\n#'\n#' @param n numero\n#' @param aprox Si TRUE redondea, si FALSE pone todos los digitos.\n#' @export\nt_printnum <- function(n, aprox = TRUE){\n  if(n<1000){\n    nn <- n\n  }else{\n    if(n<999999){\n      if(aprox){\n        nn <- paste0(\"aprox. \", round(n/1000, digits = 1),\" mil\")\n      }else{\n        nn <- paste0(n/1000, \" mil\")\n      }\n      }else{\n      if(aprox){\n        nn <- paste0(\"aprox. \", round(n/1000000, digits = 0),\" millones\")\n      }else{\n        nn <- paste0(n/1000000, \" millones\")\n      }\n    }\n    }\n  nn\n}\n",
+    "created" : 1481570426438.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4231578683",
+    "id" : "88D00D4B",
+    "lastKnownWriteTime" : 1480034881,
+    "last_content_update" : 1480034881,
+    "path" : "~/topazse/tse.utils/R/datawrangle.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

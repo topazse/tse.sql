@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#' Conecta R con la base de datos de analitica\n#'\n#' Usa paquete RODBC.\n#' @param odbc nombre de odbc local para conectar\n#' @export\nt_conectarbd <- function(odbc = \"analitica\",\n                         user = \"topaz\",\n                         pass) {\n  print(\"Conectando con base de datos de analitica...\")\n  require(RODBC)\n  tpz_con <<- odbcConnect(dsn = odbc, \n                        uid = user, \n                        pwd = pass)\n  print(\"conectado, en objeto: tpz_con\")\n}\n",
+    "created" : 1481322924494.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2886874839",
+    "id" : "4311A5B0",
+    "lastKnownWriteTime" : 1481578870,
+    "last_content_update" : 1481578870575,
+    "path" : "~/topazse/tse.sql/R/conexion.R",
+    "project_path" : "R/conexion.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

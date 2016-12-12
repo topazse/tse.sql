@@ -4,7 +4,7 @@
 #' @param con nombre de la conexion (ver t_conectarbd())
 #' @param actual si TRUE, obtiene la fecha más actual de actualización por campus
 #' @param negocio default = UNID 
-#' 
+#' @export
 t_capacidades <- function(con, actual = TRUE, negocio = "UNID"){
   if(negocio!="UNID"){stop("Negocio no reconocido")}
   
@@ -70,7 +70,7 @@ ORDER BY Campus, Dia, HoraInicio"
     
     d <- RODBC::sqlQuery(channel = con, query = q, stringsAsFactors = FALSE)
   }
-  p <- tse.utils::t_printnum(nrow(d))
-  print(paste0("Datos descargados. ", p, " renglones"))
+  #p <- tse.utils::t_printnum(nrow(d))
+  #print(paste0("Datos descargados. ", p, " renglones"))
   return(d)
 }

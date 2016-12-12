@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' Obtiene datos de capacidades por Sede UNID\n#'\n#' Base de Datos de Sedes UNID\n#' @param con nombre de la conexion (ver t_conectarbd())\n#' @param actual si TRUE, obtiene la fecha más actual de actualización por campus\n#' @param negocio default = UNID \n#' @export\nt_capacidades <- function(con, actual = TRUE, negocio = \"UNID\"){\n  if(negocio!=\"UNID\"){stop(\"Negocio no reconocido\")}\n  \n  if(actual){\n    q <- \"\nSELECT \nCENTRO as Campus, \nDIA_DESC as Dia,\nINICIO_HORA as HoraInicio, \nHORAS as DuracionClase,\ncount(distinct(AULA)) AS Aulas,\nSum(CAPACIDAD) as CapacidadInstalada,\nsum(INSCRITOS) as Inscritos,\nCASE WHEN sum(INSCRITOS) = 0 \n\tTHEN 0 ELSE\n\tsum(INSCRITOS)/sum(CAPACIDAD)\n\tEND AS PorcentajeCapacidad\nFROM bt_capacidades \nINNER JOIN dim_centros ON \n\tbt_capacidades.CENTRO_ID = dim_centros.CENTRO_ID\nINNER JOIN dim_diasunid ON \n\tdim_diasunid.DIA_UNID = bt_capacidades.DIA\nINNER JOIN (\n\tSELECT \n\t\tCENTRO_ID, \n\t\tmax(FECHA_ACTUALIZACION) as FechaMax \n\tFROM bt_capacidades\n\tGROUP BY CENTRO_ID\n\t)sq1 \n\t\ton bt_capacidades.CENTRO_ID = sq1.CENTRO_ID\n\t\tand bt_capacidades.FECHA_ACTUALIZACION = sq1.FechaMax \nWHERE ASIGNADO = 1\nGROUP BY \n\tCENTRO, INICIO_HORA, DIA_DESC, HORAS\nORDER BY Campus, Dia, HoraInicio\"\n    \n    d <- RODBC::sqlQuery(channel = con, query = q, stringsAsFactors = FALSE)\n  }else{\n    \n    q <- \"SELECT \n    CENTRO as Campus, \n    DIA_DESC as Dia,\n    INICIO_HORA as HoraInicio, \n    HORAS as DuracionClase,\n    count(distinct(AULA)) AS Aulas,\n    Sum(CAPACIDAD) as CapacidadInstalada,\n    sum(INSCRITOS) as Inscritos,\n    CASE WHEN sum(INSCRITOS) = 0 \n    THEN 0 ELSE\n    sum(INSCRITOS)/sum(CAPACIDAD)\n    END AS PorcentajeCapacidad\n    FROM bt_capacidades \n    INNER JOIN dim_centros ON \n    bt_capacidades.CENTRO_ID = dim_centros.CENTRO_ID\n    INNER JOIN dim_diasunid ON \n    dim_diasunid.DIA_UNID = bt_capacidades.DIA\n    WHERE ASIGNADO = 1\n    GROUP BY \n    CENTRO, INICIO_HORA, DIA_DESC, HORAS\n    ORDER BY Campus, Dia, HoraInicio\"\n    \n    print(\"Descargando todos los datos, si buscas lo mas actual usar actual = TRUE\")\n    \n    d <- RODBC::sqlQuery(channel = con, query = q, stringsAsFactors = FALSE)\n  }\n  #p <- tse.utils::t_printnum(nrow(d))\n  #print(paste0(\"Datos descargados. \", p, \" renglones\"))\n  return(d)\n}",
+    "created" : 1481566559966.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2235931072",
+    "id" : "7B15CF9",
+    "lastKnownWriteTime" : 1481578058,
+    "last_content_update" : 1481578058928,
+    "path" : "~/topazse/tse.sql/R/capacidades.R",
+    "project_path" : "R/capacidades.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
