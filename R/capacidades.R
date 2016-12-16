@@ -103,7 +103,7 @@ t_capacidades <- function(con, actual = TRUE, negocio = "UNID", version = 1){
         and bt_capacidades.FECHA_ACTUALIZACION = sq1.FechaMax
         WHERE ASIGNADO = 1
         GROUP BY
-        CENTRO, INICIO_HORA, DIA_DESC, HORAS
+        CENTRO, INICIO_HORA, DIA_DESC, HORAS, TIPO_AULA
         ORDER BY Campus, Dia, HoraInicio"
 
       d <- RODBC::sqlQuery(channel = con, query = q, stringsAsFactors = FALSE)
@@ -127,7 +127,7 @@ t_capacidades <- function(con, actual = TRUE, negocio = "UNID", version = 1){
       INNER JOIN dim_diasunid ON
       dim_diasunid.DIA_UNID = bt_capacidades.DIA
       GROUP BY
-      CENTRO, INICIO_HORA, DIA_DESC, HORAS
+      CENTRO, INICIO_HORA, DIA_DESC, HORAS, TIPO_AULA
       ORDER BY Campus, Dia, HoraInicio"
 
       print("Descargando todos los datos, si buscas lo mas actual usar actual = TRUE")
