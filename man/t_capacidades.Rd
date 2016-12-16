@@ -4,7 +4,7 @@
 \alias{t_capacidades}
 \title{Obtiene datos de capacidades por Sede UNID}
 \usage{
-t_capacidades(con, actual = TRUE, negocio = "UNID")
+t_capacidades(con, actual = TRUE, negocio = "UNID", version = 1)
 }
 \arguments{
 \item{con}{nombre de la conexion (ver t_conectarbd())}
