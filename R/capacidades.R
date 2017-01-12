@@ -4,6 +4,7 @@
 #' @param con nombre de la conexion (ver t_conectarbd())
 #' @param actual si TRUE, obtiene la fecha más actual de actualización por campus
 #' @param negocio default = UNID
+#' @param version versión a llamar
 #' @export
 t_capacidades <- function(con, actual = TRUE, negocio = "UNID", version = 1){
   if(negocio!="UNID"){stop("Negocio no reconocido")}
@@ -136,7 +137,25 @@ t_capacidades <- function(con, actual = TRUE, negocio = "UNID", version = 1){
     }
 
     }else{
-      stop("version no reconocida... ")
+      if(version == 4){
+        q <- "SELECT
+        dim_centros.CENTRO AS CAMPUS,
+        TIPO_AULA,
+        AULA,
+        HORAS,
+        CAPACIDAD,
+        INSCRITOS,
+        DIA,
+        FECHA_ACTUALIZACION
+        FROM bt_capacidades
+        left join dim_centros ON dim_centros.CENTRO_ID = bt_capacidades.CENTRO_ID
+        WHERE bt_capacidades.ASIGNADO=1"
+
+        d <- RODBC::sqlQuery(channel = con, query = q, stringsAsFactors = FALSE)
+
+      }else{
+        stop("version no reconocida... ")
+      }
     }
 
   }

@@ -12,6 +12,8 @@ t_capacidades(con, actual = TRUE, negocio = "UNID", version = 1)
 \item{actual}{si TRUE, obtiene la fecha más actual de actualización por campus}
 
 \item{negocio}{default = UNID}
+
+\item{version}{versión a llamar}
 }
 \description{
 Base de Datos de Sedes UNID
