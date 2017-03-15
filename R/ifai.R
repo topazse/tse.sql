@@ -135,7 +135,7 @@ bt_alumnado.Y, NIVEL_GRUPO, CONTROL, ETAPA,
 FUENTE, dim_ct.ESTADO_ID +'-'+ dim_ct.MUNICIPIO_ID,
 DISCIPLINA, AREA, SUBAREA, ESPECIALIDAD"
      
-    print("Descargando datos con filtros: solamente genéro 0 y 1, poca desagregacion de niveles (para modelar totales y por llavesgeo)")
+    print("Descargando datos con filtros: solamente genero 0 y 1, poca desagregacion de niveles (para modelar totales y por llavesgeo)")
     
   }
   d <- RODBC::sqlQuery(channel = con, 
