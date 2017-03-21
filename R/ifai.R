@@ -139,7 +139,7 @@ DISCIPLINA, AREA, SUBAREA, ESPECIALIDAD"
     
   }
   
-  f(version == 4){
+  if(version == 4){
     q <- "SELECT 
 bt_alumnado.Y,
 NIVEL_GRUPO,
