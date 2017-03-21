@@ -172,7 +172,40 @@ DISCIPLINA, AREA, SUBAREA, ESPECIALIDAD, dim_ct.AGEB_FOLIO"
     
   }
   
-  
+  if(version == 5){
+    q <- "SELECT 
+bt_alumnado.Y,
+NIVEL_GRUPO,
+CONTROL, 
+ETAPA,
+FUENTE,
+dim_ct.CCT_ID,
+dim_ct.ESTADO_ID +'-'+ dim_ct.MUNICIPIO_ID as LLAVEGEO,
+DISCIPLINA, 
+AREA, 
+SUBAREA, 
+ESPECIALIDAD,
+dim_ct.AGEB_FOLIO,
+SUM(ALUMNOS) as ALUMNOS
+from bt_alumnado with(nolock)
+inner join dim_etapasalumno on bt_alumnado.ETAPA_ID = dim_etapasalumno.ETAPA_ID
+inner join dim_programas on bt_alumnado.PROGRAMA_ID = dim_programas.PROGRAMA_ID
+inner join dim_ct on dim_ct.CCT_ID = bt_alumnado.CCT_ID
+inner join dim_ctfinanzas on dim_ctfinanzas.CCT_ID = dim_ct.CCT_ID
+inner join dim_sostenimiento on dim_sostenimiento.SOSTENIMIENTO_ID = dim_ctfinanzas.SOSTENIMIENTO_ID
+inner join dim_control on dim_control.CONTROL_ID = dim_ctfinanzas.CONTROL_ID
+inner join dim_niveles on dim_niveles.NIVEL_ID = dim_programas.NIVEL_ID
+left join dim_classtopaz on dim_classtopaz.TOPAZCLASS_ID = dim_programas.TOPAZCLASS_ID
+WHERE GENERO_ID IN (0,1) and dim_ct.AGEB_FOLIO != ''
+GROUP BY 
+bt_alumnado.Y, NIVEL_GRUPO, CONTROL, ETAPA, dim_ct.CCT_ID,
+FUENTE, dim_ct.ESTADO_ID +'-'+ dim_ct.MUNICIPIO_ID,
+DISCIPLINA, AREA, SUBAREA, ESPECIALIDAD, dim_ct.AGEB_FOLIO"
+    
+    print("Descargando datos con filtros: solamente genero 0 y 1, 
+          poca desagregacion de niveles pero por AGEB y CCT (Para modelo expansion - competencia)")
+    
+  }
   d <- RODBC::sqlQuery(channel = con, 
                        query = q, 
                        stringsAsFactors = FALSE)
