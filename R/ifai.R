@@ -197,7 +197,7 @@ inner join dim_sostenimiento on dim_sostenimiento.SOSTENIMIENTO_ID = dim_ctfinan
 inner join dim_control on dim_control.CONTROL_ID = dim_ctfinanzas.CONTROL_ID
 inner join dim_niveles on dim_niveles.NIVEL_ID = dim_programas.NIVEL_ID
 left join dim_classtopaz on dim_classtopaz.TOPAZCLASS_ID = dim_programas.TOPAZCLASS_ID
-WHERE GENERO_ID IN (0,1) and dim_ct.AGEB_FOLIO != ''
+WHERE GENERO_ID IN (0,1)
 GROUP BY 
 bt_alumnado.Y, NIVEL_GRUPO, CONTROL, ETAPA, dim_ct.CCT_ID,
 FUENTE, dim_ct.ESTADO_ID +'-'+ dim_ct.MUNICIPIO_ID,NIVEL_GRUPO, SOSTENIMIENTO_GRUPO,
