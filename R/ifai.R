@@ -179,6 +179,7 @@ NIVEL_GRUPO,
 CONTROL, 
 ETAPA,
 FUENTE,
+NIVEL_GRUPO,
 dim_ct.CCT_ID,
 dim_ct.ESTADO_ID +'-'+ dim_ct.MUNICIPIO_ID as LLAVEGEO,
 DISCIPLINA, 
@@ -199,7 +200,7 @@ left join dim_classtopaz on dim_classtopaz.TOPAZCLASS_ID = dim_programas.TOPAZCL
 WHERE GENERO_ID IN (0,1) and dim_ct.AGEB_FOLIO != ''
 GROUP BY 
 bt_alumnado.Y, NIVEL_GRUPO, CONTROL, ETAPA, dim_ct.CCT_ID,
-FUENTE, dim_ct.ESTADO_ID +'-'+ dim_ct.MUNICIPIO_ID,
+FUENTE, dim_ct.ESTADO_ID +'-'+ dim_ct.MUNICIPIO_ID,NIVEL_GRUPO,
 DISCIPLINA, AREA, SUBAREA, ESPECIALIDAD, dim_ct.AGEB_FOLIO"
     
     print("Descargando datos con filtros: solamente genero 0 y 1, 
