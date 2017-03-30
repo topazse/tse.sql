@@ -293,8 +293,8 @@ AREA,
 SUBAREA, 
 ESPECIALIDAD"
     
-    print("Descargando datos con filtros: solamente genero 0 y 1, 
-          poca desagregacion de niveles pero por AGEB y CCT (Para modelo expansion - competencia)")
+    # print("Descargando datos con filtros: solamente genero 0 y 1, 
+      #     poca desagregacion de niveles pero por AGEB y CCT (Para modelo expansion - competencia)")
     
   }
   
