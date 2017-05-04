@@ -4,8 +4,9 @@
 #'
 #' @param con conexion abierta de RODBC
 #' @param version version de descarga
+#' @param pruebaMty si TRUE, solamente descarga datos de Monterrey
 #' @export
-t_datos_modelo <- function(con, version){
+t_datos_modelo <- function(con, version, pruebaMty = FALSE){
 if(version == 1){
 q <- "SELECT 
 sq1.AGEB_FOLIO,
@@ -165,7 +166,7 @@ GROUP BY a.AGEB_FOLIO, a.LLAVEGEO)sq1
 }
 	
 if(version == 2){
-q <- "SELECT
+q <- paste0("SELECT
 sq1.AGEB_FOLIO,
 sq1.LLAVEGEO,
 POBLACION,
@@ -357,7 +358,9 @@ GROUP BY a.AGEB_FOLIO, a.LLAVEGEO)sq1
 				CASE WHEN SHR_GDE=0 THEN 0 ELSE 1/SHR_GDE END as SHR_GDE, 
 				CASE WHEN SHR_MAYOR=0 THEN 0 ELSE 1/SHR_MAYOR END as SHR_MAYOR, 
 				CASE WHEN TEND_SHR_PUB=0 THEN 0 ELSE 1/TEND_SHR_PUB END as TEND_SHR_PUB
-				FROM m_competidores)l on l.LLAVEGEO = sq1.LLAVEGEO"
+				FROM m_competidores)l on l.LLAVEGEO = sq1.LLAVEGEO",
+	if(pruebaMty){" WHERE SUBSTRING(sq1.LLAVEGEO, 1, 2) = '19'"}else{})
+	
 	}
 	
 d <- RODBC::sqlQuery(channel = con, query = q)
