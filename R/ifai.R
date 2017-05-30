@@ -302,7 +302,7 @@ ESPECIALIDAD"
      print("IFAI version datos_ifai_11 prueba (sin flags de cambio de nombre pero por genero)")
      
     q <- "SELECT 
-bt_alumnado.Y,
+bt_alumnadotest.Y,
 ETAPA,
 NIVEL,
 NIVEL_GRUPO,
@@ -323,7 +323,7 @@ GRUPO AS GRUPO_COMPETENCIA,
 COMPETIDOR,
 ---INSTITUCION,
 CCT_NOMBRE AS NOMBRE_CENTRO,
-bt_alumnado.CCT_ID,
+bt_alumnadotest.CCT_ID,
 MUNICIPIO_IFAI AS MUNICIPIO, 
 MUNICIPIO_SEDE,
 ZONAMETRO,
@@ -356,7 +356,7 @@ left join
 	on SQ2.PROGRAMA_ID = dim_programas.PROGRAMA_ID
 WHERE GENERO_ID IN (0,1) and bt_alumnadotest.ETAPA_ID != 'E111'
 GROUP BY 
-test.Y,
+bt_alumnadotest.Y,
 NIVEL,
 NIVEL_GRUPO,
 OFERTA,
@@ -371,7 +371,7 @@ COMPETIDOR,
 ZONAMETRO,
 SOSTENIMIENTO, 
 SOSTENIMIENTO_GRUPO,
-test.CCT_ID,
+bt_alumnadotest.CCT_ID,
 dim_programas.PROGRAMA_ID,
 dim_programas.CODIGO_SEP,
 CONTROL, 
