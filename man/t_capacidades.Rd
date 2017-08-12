@@ -18,4 +18,3 @@ t_capacidades(con, actual = TRUE, negocio = "UNID", version = 1)
 \description{
 Base de Datos de Sedes UNID
 }
-

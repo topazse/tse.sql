@@ -3,6 +3,6 @@
 export(t_capacidades)
 export(t_censo2010)
 export(t_conectarbd)
-export(t_ifai)
 export(t_datos_modelo)
 export(t_descargar_censoecon)
+export(t_ifai)

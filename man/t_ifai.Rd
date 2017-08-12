@@ -14,4 +14,3 @@ t_ifai(con, version = 1)
 \description{
 Usa paquete RODBC, ver versiones.
 }
-

@@ -18,4 +18,3 @@ t_conectarbd(odbc = "analitica", user = "topaz", pass, export = FALSE)
 \description{
 Usa paquete RODBC.
 }
-

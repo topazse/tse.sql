@@ -12,4 +12,3 @@ t_censo2010(con)
 \description{
 Llama a base en SQL
 }
-
